@@ -1,5 +1,5 @@
-network_gcp_region_restricition.sentinel.bkp
-test2.sentinel.bkp
-test.sentinel
+./network_gcp_region_restricition.sentinel.bkp
+./test2.sentinel.bkp
+./test.sentinel
 .terraform/
 .terraform*
