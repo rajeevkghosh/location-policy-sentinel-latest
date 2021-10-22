@@ -1,6 +1,6 @@
 provider "google" {
- #access_token = var.access_token
- credentials = file("../key.json")
+ access_token = var.access_token
+ #credentials = file("../key.json")
 }
 
 resource "google_pubsub_topic" "example" {
