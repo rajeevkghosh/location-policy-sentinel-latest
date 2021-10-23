@@ -15,13 +15,22 @@ multi_region_var = ["US"]
 
 # Resource Types Region Map
 resourceTypesRegionMap = {
+
 	"google_pubsub_topic": {
-		"key": "message_storage_policy.0.allowed_persistence_regions",
-		#"multi_region" : true,
+		"key":   "message_storage_policy.0.allowed_persistence_regions",
+		"array": false,
 	},
 	"google_bigquery_dataset": {
-		"key": "location",
-		#"multi_region" : false,
+		"key":   "location",
+		"array": false,
+	},
+	"google_dataproc_cluster": {
+		"key":   "region",
+		"array": false,
+	},
+	"google_secret_manager_secret": {
+		"key":   "replication.0.user_managed.0.replicas",
+		"array": true,
 	},
 }
 
@@ -33,52 +42,63 @@ for resourceTypesRegionMap as rt, _ {
 	}
 }
 
-#print (allResources)
+check_for_multilocation = func(location) {
+	loca_multi = []
+	for location as rt {
+		a = plan.evaluate_attribute(rt, "location")
+		append(loca_multi, a)
+	}
+	return loca_multi
+}
 
-check_for_location = func(address, rc, location_key_param) {
+check_for_location = func(address, rc, location_key_param, arr) {
 	violations = {}
 	locations = []
-	#address = rc["address"]
 	location = plan.evaluate_attribute(rc.change.after, location_key_param)
-	#print(location)
 
-	is_undefined = rule { types.type_of(location) is "undefined" }
+	if arr == false {
 
-	if is_undefined is true {
-		#violations[address] = rc
-		return violations
-		#return "hi"
+		is_undefined = rule { types.type_of(location) is "undefined" }
 
-	} else {
+		if is_undefined is true {
 
-		#return "abcd"
-
-		#location2 = plan.evaluate_attribute(rc.change.after, location_key_param)
-		#print(location)
-
-		is_string = rule { types.type_of(location) is "string" }
-		#print(is_string)
-
-		if is_string {
-
-			#print("hiiiiii")
-			append(locations, location)
-			#print(locations)
+			return violations
 
 		} else {
 
-			locations = location
-			#print(locations)
+			is_string = rule { types.type_of(location) is "string" }
+
+			if is_string {
+
+				append(locations, location)
+
+			} else {
+
+				locations = location
+			}
+
+
+			for locations as lk {
+				print(lk)
+				if strings.has_prefix(lk, prefix) or lk in multi_region_var {
+
+				} else {
+
+					violations[address] = rc
+
+				}
+
+			}
 		}
+		return violations
+	} else {
 
-		#print(locations)
+		loca = check_for_multilocation(location)
 
-		for locations as lk {
-			print(lk)
+		for loca as lk {
+            print(lk)
 			if strings.has_prefix(lk, prefix) or lk in multi_region_var {
-				#print(lk)
 
-				#return ""
 			} else {
 
 				violations[address] = rc
@@ -86,8 +106,9 @@ check_for_location = func(address, rc, location_key_param) {
 			}
 
 		}
+
+		return violations
 	}
-	return violations
 }
 
 msgs = {}
@@ -96,8 +117,9 @@ for allResources as address, rc {
 		address,
 		rc,
 		resourceTypesRegionMap[rc["type"]]["key"],
+		resourceTypesRegionMap[rc["type"]]["array"],
 	)
-	print(msg)
+	#print(msg)
 	if length(msg) > 0 {
 		msgs[address] = msg
 	}

@@ -15,18 +15,28 @@ multi_region_var = ["US"]
 
 # Resource Types Region Map
 resourceTypesRegionMap = {
-	"google_pubsub_topic": {
-		"key":   "message_storage_policy.0.allowed_persistence_regions",
+	/*"google_pubsub_topic": {
+		"key": "message_storage_policy.0.allowed_persistence_regions",
 		#"multi_region" : true,
 	},
-	"google_bigquery_dataset" : {
-		"key":   "location",
+	"google_bigquery_dataset": {
+		"key": "location",
 		#"multi_region" : false,
+	},
+	"google_dataproc_cluster": {
+        "key": "region",
+		#"multi_region" : false,
+
+	},*/
+	"google_secret_manager_secret": {
+        #"key": "replication.0.user_managed.0.replicas.0.location",
+		"key": "replication.0.user_managed.0.replicas",
+		#"key": "location",
+		#"multi_region" : false,
+
 	},
 
 }
-
-
 
 allResources = {}
 for resourceTypesRegionMap as rt, _ {
@@ -38,20 +48,35 @@ for resourceTypesRegionMap as rt, _ {
 
 #print (allResources)
 
-
 check_for_location = func(address, rc, location_key_param) {
 	violations = {}
 	locations = []
-	address = rc["address"]
-	location = plan.evaluate_attribute(rc.change.after, location_key_param)
-	#print(location)
+
+	for rc as rt {
+	location = plan.evaluate_attribute(rc.change.after,location_key_param)
+
+	for location as each_replica {
+	print(locations)
+
+	#print(types.type_of(each_replica["location"]))
+
+	is_str = rule { types.type_of(each_replica["location"]) is "string" }
+
+	if is_str {
+
+	append(locations, each_replica["location"])
+	#print(types.type_of(locations))
+     
+	}
+
+	}
 
 	is_undefined = rule { types.type_of(location) is "undefined" }
-	
+
 	if is_undefined is true {
-		 #violations[address] = rc
-		 return violations
-		 #return "hi"
+		#violations[address] = rc
+		return violations
+		#return "hi"
 
 	} else {
 
@@ -68,26 +93,32 @@ check_for_location = func(address, rc, location_key_param) {
 			#print("hiiiiii")
 			append(locations, location)
 			#print(locations)
-		
+
 		} else {
 
 			locations = location
 			#print(locations)
 		}
+	}
 
 		#print(locations)
-	
-	for locations as lk,rc {
-		    print(rc)
-			if not strings.has_prefix(lk, prefix) or lk not in multi_region_var {
+
+		for locations as lk {
+			#print(lk)
+			if strings.has_prefix(lk, prefix) or lk in multi_region_var {
 				#print(lk)
-				#violations[address] = rc
-				return ""
+
+				#return ""
+			} else {
+
+				violations[address] = rc
+
 			}
+
 		}
 	}
+	return violations
 }
-
 
 msgs = {}
 for allResources as address, rc {
@@ -97,13 +128,12 @@ for allResources as address, rc {
 		resourceTypesRegionMap[rc["type"]]["key"],
 	)
 	print(msg)
-		if length(msg) > 0 {
+	if length(msg) > 0 {
 		msgs[address] = msg
 	}
 }
 
 GCP_RES_LOCATION = rule { length(msgs) is 0 }
-	
 
 # Main rule
 main = rule { GCP_RES_LOCATION }
