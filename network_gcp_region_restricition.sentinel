@@ -62,7 +62,8 @@ check_for_location = func(address, rc, location_key_param, arr) {
 
 		if is_undefined is true {
 
-			return violations
+			#return violations
+			violations[address] = rc
 
 		} else {
 

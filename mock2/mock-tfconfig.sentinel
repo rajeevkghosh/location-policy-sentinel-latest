@@ -1,0 +1,264 @@
+import "strings"
+import "types"
+
+_modules = {
+	"root": {
+		"data":    {},
+		"modules": {},
+		"outputs": {},
+		"providers": {
+			"google": {
+				"alias": {
+					"": {
+						"config": {},
+						"references": {
+							"access_token": [
+								"var.access_token",
+							],
+						},
+						"version": "",
+					},
+				},
+				"config": {},
+				"references": {
+					"access_token": [
+						"var.access_token",
+					],
+				},
+				"version": "",
+			},
+		},
+		"resources": {
+			"google_bigquery_dataset": {
+				"dataset": {
+					"config": {
+						"dataset_id":                  "example_dataset",
+						"default_table_expiration_ms": 3600000,
+						"description":                 "This is a test description",
+						"friendly_name":               "test",
+						"labels": {
+							"env": "default",
+						},
+					},
+					"provisioners": null,
+					"references": {
+						"dataset_id":                  [],
+						"default_table_expiration_ms": [],
+						"description":                 [],
+						"friendly_name":               [],
+						"labels":                      [],
+					},
+				},
+			},
+			"google_dataproc_cluster": {
+				"mycluster": {
+					"config": {
+						"cluster_config": [
+							{
+								"master_config": [
+									{
+										"disk_config": [
+											{
+												"boot_disk_size_gb": 30,
+												"boot_disk_type":    "pd-ssd",
+											},
+										],
+										"machine_type":  "e2-medium",
+										"num_instances": 1,
+									},
+								],
+								"preemptible_worker_config": [
+									{
+										"num_instances": 0,
+									},
+								],
+								"software_config": [
+									{
+										"image_version": "1.3.7-deb9",
+										"override_properties": {
+											"dataproc:dataproc.allow.zero.workers": "true",
+										},
+									},
+								],
+								"staging_bucket": "dataproc-staging-bucket",
+								"worker_config": [
+									{
+										"disk_config": [
+											{
+												"boot_disk_size_gb": 30,
+												"num_local_ssds":    1,
+											},
+										],
+										"machine_type":     "e2-medium",
+										"min_cpu_platform": "Intel Skylake",
+										"num_instances":    2,
+									},
+								],
+							},
+						],
+						"graceful_decommission_timeout": "120s",
+						"labels": {
+							"env": "dev",
+							"foo": "bar",
+						},
+						"name": "mycluster",
+					},
+					"provisioners": null,
+					"references": {
+						"cluster_config": [
+							{
+								"master_config": [
+									{
+										"disk_config": [
+											{
+												"boot_disk_size_gb": [],
+												"boot_disk_type":    [],
+											},
+										],
+										"machine_type":  [],
+										"num_instances": [],
+									},
+								],
+								"preemptible_worker_config": [
+									{
+										"num_instances": [],
+									},
+								],
+								"software_config": [
+									{
+										"image_version":       [],
+										"override_properties": [],
+									},
+								],
+								"staging_bucket": [],
+								"worker_config": [
+									{
+										"disk_config": [
+											{
+												"boot_disk_size_gb": [],
+												"num_local_ssds":    [],
+											},
+										],
+										"machine_type":     [],
+										"min_cpu_platform": [],
+										"num_instances":    [],
+									},
+								],
+							},
+						],
+						"graceful_decommission_timeout": [],
+						"labels":                        [],
+						"name":                          [],
+					},
+				},
+			},
+			"google_pubsub_topic": {
+				"example": {
+					"config": {
+						"message_storage_policy": [
+							{
+								"allowed_persistence_regions": [
+									"us-central1",
+									"us-east-1",
+									"us-west-1",
+								],
+							},
+						],
+						"name": "example-topic",
+					},
+					"provisioners": null,
+					"references": {
+						"message_storage_policy": [
+							{
+								"allowed_persistence_regions": [],
+							},
+						],
+						"name": [],
+					},
+				},
+			},
+			"google_secret_manager_secret": {
+				"secret-basic": {
+					"config": {
+						"labels": {
+							"label": "my-label",
+						},
+						"replication": [
+							{
+								"user_managed": [
+									{
+										"replicas": [
+											{
+												"location": "us-central1",
+											},
+											{
+												"location": "us-east1",
+											},
+										],
+									},
+								],
+							},
+						],
+						"secret_id": "secret",
+					},
+					"provisioners": null,
+					"references": {
+						"labels": [],
+						"replication": [
+							{
+								"user_managed": [
+									{
+										"replicas": [
+											{
+												"location": [],
+											},
+											{
+												"location": [],
+											},
+										],
+									},
+								],
+							},
+						],
+						"secret_id": [],
+					},
+				},
+			},
+		},
+		"variables": {
+			"access_token": {
+				"default":     null,
+				"description": "access token",
+			},
+		},
+	},
+}
+
+module_paths = [
+	[],
+]
+
+module = func(path) {
+	if types.type_of(path) is not "list" {
+		error("expected list, got", types.type_of(path))
+	}
+
+	if length(path) < 1 {
+		return _modules.root
+	}
+
+	addr = []
+	for path as p {
+		append(addr, "module")
+		append(addr, p)
+	}
+
+	return _modules[strings.join(addr, ".")]
+}
+
+data = _modules.root.data
+modules = _modules.root.modules
+providers = _modules.root.providers
+resources = _modules.root.resources
+variables = _modules.root.variables
+outputs = _modules.root.outputs
