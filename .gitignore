@@ -1,4 +1,4 @@
 ./network_gcp_region_restricition.sentinel.bkp
-test*
+#test*
 .terraform/
 .terraform*

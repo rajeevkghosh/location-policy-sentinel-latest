@@ -1,0 +1,70 @@
+{
+	"records": [
+		{
+			"key": "test/network_gcp_region_restricition/dataproc-location-check-fail/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/secret-manager-location-check-fail/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/bigquery-location-check-fail/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/pubsub-location-check-null/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/pubsub-location-check-pass/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/dataproc-location-check-null/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/bigquery-location-check-null/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/secret-manager-location-check-pass/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/pubsub-location-check-fail/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/bigquery-location-check-pass/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/dataproc-location-check-pass/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		}
+	]
+}
