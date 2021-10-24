@@ -28,7 +28,7 @@ resource "google_bigquery_dataset" "dataset" {
 
 resource "google_dataproc_cluster" "mycluster" {
   name     = "mycluster"
-  region   = "us-central1"
+  #region   = "us-central1"
   graceful_decommission_timeout = "120s"
   
   labels = {
@@ -81,13 +81,13 @@ resource "google_secret_manager_secret" "secret-basic" {
   }
 
   replication {
-    /*user_managed {
+    user_managed {
       replicas {
         location = "us-central1"
       }
       replicas {
         location = "us-east1"
       }
-    }*/
+    }
   }
 }
