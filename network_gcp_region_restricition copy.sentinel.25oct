@@ -31,7 +31,6 @@ resourceTypesRegionMap = {
 	"google_secret_manager_secret": {
 		"key":   "replication.0.user_managed.0.replicas",
 		"array": true,
-		"location_name" : "location",
 	},
 }
 
@@ -47,40 +46,52 @@ check_for_matches = func(location, address, rc) {
 vio = {}
 	for location as lk {
 				print(lk)
-				if not (strings.has_prefix(lk, prefix) or lk in multi_region_var) {
-					#print ("True")
-					vio[address] = rc
+				
+				if not strings.has_prefix(lk, prefix) or lk in multi_region_var {
+					violations[address] = rc
+
 				} 
 			}
 	return vio
+
 }
 
-check_for_multilocation = func(location, location_name) {
+check_for_multilocation = func(location) {
 	loca_multi = []
 	for location as rt {
-		a = plan.evaluate_attribute(rt, location_name)
+		a = plan.evaluate_attribute(rt, "location")
 		append(loca_multi, a)
 	}
 	return loca_multi
 }
 
-check_for_location = func(address, rc, location_key_param, arr,location_name) {
+check_for_location = func(address, rc, location_key_param, arr) {
 	violations = {}
 	locations = []
 	location = plan.evaluate_attribute(rc.change.after, location_key_param)
 
-	if not arr {
+	if arr == false {
+
 		is_undefined = rule { types.type_of(location) is "undefined" }
+
 		if is_undefined is true {
+
+			#return violations
 			violations[address] = rc
+
 		} else {
+
 			is_string = rule { types.type_of(location) is "string" }
 
 			if is_string {
+
 				append(locations, location)
+
 			} else {
+
 				locations = location
 			}
+
 			match = check_for_matches(locations,address,rc)
 			#print(match)
 			violations = match
@@ -88,9 +99,20 @@ check_for_location = func(address, rc, location_key_param, arr,location_name) {
 		return violations
 	} else {
 
-		loca = check_for_multilocation(location, location_name)
-		matching = check_for_matches(loca,address,rc)
-		violations = matching
+		loca = check_for_multilocation(location)
+
+		for loca as lk {
+            print(lk)
+			if strings.has_prefix(lk, prefix) or lk in multi_region_var {
+
+			} else {
+
+				violations[address] = rc
+
+			}
+
+		}
+
 		return violations
 	}
 }
@@ -102,7 +124,6 @@ for allResources as address, rc {
 		rc,
 		resourceTypesRegionMap[rc["type"]]["key"],
 		resourceTypesRegionMap[rc["type"]]["array"],
-		resourceTypesRegionMap[rc["type"]]["location_name"],
 	)
 	#print(msg)
 	if length(msg) > 0 {
