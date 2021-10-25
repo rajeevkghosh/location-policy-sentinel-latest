@@ -29,9 +29,9 @@ resourceTypesRegionMap = {
 		"array": false,
 	},
 	"google_secret_manager_secret": {
-		"key":   "replication.0.user_managed.0.replicas",
-		"array": true,
-		"location_name" : "location",
+		"key":           "replication.0.user_managed.0.replicas",
+		"array":         true,
+		"location_name": "location",
 	},
 }
 
@@ -44,14 +44,14 @@ for resourceTypesRegionMap as rt, _ {
 }
 
 check_for_matches = func(location, address, rc) {
-vio = {}
+	vio = {}
 	for location as lk {
-				print(lk)
-				if not (strings.has_prefix(lk, prefix) or lk in multi_region_var) {
-					#print ("True")
-					vio[address] = rc
-				} 
-			}
+		print(lk)
+		if not (strings.has_prefix(lk, prefix) or lk in multi_region_var) {
+			#print ("True")
+			vio[address] = rc
+		}
+	}
 	return vio
 }
 
@@ -64,7 +64,7 @@ check_for_multilocation = func(location, location_name) {
 	return loca_multi
 }
 
-check_for_location = func(address, rc, location_key_param, arr,location_name) {
+check_for_location = func(address, rc, location_key_param, arr, location_name) {
 	violations = {}
 	locations = []
 	location = plan.evaluate_attribute(rc.change.after, location_key_param)
@@ -81,7 +81,7 @@ check_for_location = func(address, rc, location_key_param, arr,location_name) {
 			} else {
 				locations = location
 			}
-			match = check_for_matches(locations,address,rc)
+			match = check_for_matches(locations, address, rc)
 			#print(match)
 			violations = match
 		}
@@ -89,7 +89,7 @@ check_for_location = func(address, rc, location_key_param, arr,location_name) {
 	} else {
 
 		loca = check_for_multilocation(location, location_name)
-		matching = check_for_matches(loca,address,rc)
+		matching = check_for_matches(loca, address, rc)
 		violations = matching
 		return violations
 	}
