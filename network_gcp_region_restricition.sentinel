@@ -10,7 +10,7 @@ import "tfplan-functions" as plan
 import "strings"
 import "types"
 
-prefix = "us-"
+prefix = ["us-"]
 multi_region_var = ["US"]
 
 # Resource Types Region Map
@@ -29,9 +29,9 @@ resourceTypesRegionMap = {
 		"array": false,
 	},
 	"google_secret_manager_secret": {
-		"key":           "replication.0.user_managed.0.replicas",
-		"array":         true,
-		"location_name": "location",
+		"key":          "replication.0.user_managed.0.replicas",
+		"array":        true,
+		"location_key": "location",
 	},
 }
 
@@ -47,24 +47,26 @@ check_for_matches = func(location, address, rc) {
 	vio = {}
 	for location as lk {
 		print(lk)
-		if not (strings.has_prefix(lk, prefix) or lk in multi_region_var) {
-			#print ("True")
-			vio[address] = rc
+		for prefix as lp {
+			if not (strings.has_prefix(lk, lp) or lk in multi_region_var) {
+				#print ("True")
+				vio[address] = rc
+			}
 		}
 	}
 	return vio
 }
 
-check_for_multilocation = func(location, location_name) {
+check_for_multilocation = func(location, location_key) {
 	loca_multi = []
 	for location as rt {
-		a = plan.evaluate_attribute(rt, location_name)
+		a = plan.evaluate_attribute(rt, location_key)
 		append(loca_multi, a)
 	}
 	return loca_multi
 }
 
-check_for_location = func(address, rc, location_key_param, arr, location_name) {
+check_for_location = func(address, rc, location_key_param, arr, location_key) {
 	violations = {}
 	locations = []
 	location = plan.evaluate_attribute(rc.change.after, location_key_param)
@@ -88,7 +90,7 @@ check_for_location = func(address, rc, location_key_param, arr, location_name) {
 		return violations
 	} else {
 
-		loca = check_for_multilocation(location, location_name)
+		loca = check_for_multilocation(location, location_key)
 		matching = check_for_matches(loca, address, rc)
 		violations = matching
 		return violations
@@ -102,7 +104,7 @@ for allResources as address, rc {
 		rc,
 		resourceTypesRegionMap[rc["type"]]["key"],
 		resourceTypesRegionMap[rc["type"]]["array"],
-		resourceTypesRegionMap[rc["type"]]["location_name"],
+		resourceTypesRegionMap[rc["type"]]["location_key"],
 	)
 	#print(msg)
 	if length(msg) > 0 {
