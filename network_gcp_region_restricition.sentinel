@@ -47,12 +47,10 @@ check_for_matches = func(location, address, rc) {
 	vio = {}
 	for location as lk {
 		print(lk)
-		for prefix as lp {
-			if not (strings.has_prefix(lk, lp) or lk in multi_region_var) {
+			if not ((strings.has_prefix(lk, prefix[0]) or lk in multi_region_var)) {
 				#print ("True")
 				vio[address] = rc
 			}
-		}
 	}
 	return vio
 }
