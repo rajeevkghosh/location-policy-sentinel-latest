@@ -10,7 +10,8 @@ import "tfplan-functions" as plan
 import "strings"
 import "types"
 
-prefix = ["us-"]
+prefix = ["us-","northamerica-","nam-"]
+denied_region = ["nam-eur-asia1"]
 multi_region_var = ["US"]
 
 # Resource Types Region Map
@@ -31,6 +32,12 @@ resourceTypesRegionMap = {
 	"google_dialogflow_cx_agent": {
 		"key": "location",
 	},
+	"google_compute_interconnect_attachment": {
+		"key": "region",
+	},
+	"google_spanner_instance": {
+		"key": "config",
+	},
 }
 
 # Function to check region prefix OR location prefix
@@ -38,8 +45,11 @@ check_for_matches = func(location, address, rc) {
 	violations = {}
 	for location as lk {
 		#print(lk)
-		resource_prefix = strings.split(lk,"-")[0]+"-"
-
+		if lk in denied_region {
+			violations[address] = rc
+		}
+		resource_prefix = strings.split(lk, "-")[0] + "-"
+        print(resource_prefix)
 		if not (resource_prefix in prefix or lk in multi_region_var) {
 			violations[address] = rc
 		}
@@ -111,6 +121,7 @@ for allResources as address, rc {
 }
 
 GCP_RES_LOCATION = rule { length(msgs) is 0 }
+print(msgs)
 
 # Main rule
 main = rule { GCP_RES_LOCATION }
