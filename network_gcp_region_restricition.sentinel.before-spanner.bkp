@@ -10,11 +10,8 @@ import "tfplan-functions" as plan
 import "strings"
 import "types"
 
-prefix = ["us-"]
-spanner_region = ["nam10","nam11","nam3","nam6","nam7","nam8","nam9","regional-us-central1",
-"regional-us-east1","regional-us-east4","regional-us-west1","regional-us-west2",
-"regional-us-west3","regional-us-west4","regional-northamerica-northeast1","regional-northamerica-northeast2"]
-   
+prefix = ["us-", "regional-", "northamerica-","nam-"]
+denied_region = ["nam-eur-asia1"]
 multi_region_var = ["US"]
 
 # Resource Types Region Map
@@ -47,23 +44,23 @@ resourceTypesRegionMap = {
 check_for_matches = func(location, address, rc) {
 	violations = {}
 	for location as lk {
-		#print(lk)
-		#print(rc["type"])
-		is_spanner = rule {rc["type"] == "google_spanner_instance"}
-        print(is_spanner)
+		print(lk)
+		if lk in denied_region {
+			violations[address] = rc
+		}
+		
+		is_spanner = strings.has_prefix(lk,"projects")
 
 		if is_spanner {
            a = strings.split(lk, "/")
-           #print(a)
+           print(a)
 		   b = a[-1]
-		   #print (b)
+		   print (b)
 		   lk = b
-           if not (lk in spanner_region) {
-			   violations[address] = rc
-		   }
+		}
+		is_nam = strings.has_prefix(lk, "nam")
 
-		} else { 
-
+		if not is_nam { 
 			resource_prefix = strings.split(lk, "-")[0] + "-"
 			print(resource_prefix)
 			if not (resource_prefix in prefix or lk in multi_region_var) {
