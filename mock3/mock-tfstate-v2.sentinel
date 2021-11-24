@@ -1,0 +1,44 @@
+terraform_version = "1.0.11"
+
+outputs = {}
+
+resources = {
+	"google_spanner_instance.example": {
+		"address":        "google_spanner_instance.example",
+		"depends_on":     [],
+		"deposed_key":    "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "example",
+		"provider_name":  "registry.terraform.io/hashicorp/google",
+		"tainted":        false,
+		"type":           "google_spanner_instance",
+		"values": {
+			"config":        "projects/airline1-sabre-wolverine/instanceConfigs/nam3",
+			"display_name":  "us-dev_abcd_fghi_spanner1",
+			"force_destroy": false,
+			"id":            "airline1-sabre-wolverine/tfgen-spanid-20211123161757611",
+			"labels": {
+				"application_division": "pci",
+				"application_name":     "demo",
+				"application_role":     "app",
+				"au":                   "0223092",
+				"created":              "20211122",
+				"data_compliance":      "pci",
+				"data_confidentiality": "pub",
+				"data_type":            "test",
+				"env":                  "default",
+				"environment":          "dev",
+				"gcp_region":           "us",
+				"owner":                "hybridenv",
+			},
+			"name":             "tfgen-spanid-20211123161757611",
+			"num_nodes":        2,
+			"processing_units": 2000,
+			"project":          "airline1-sabre-wolverine",
+			"state":            "READY",
+			"timeouts":         null,
+		},
+	},
+}

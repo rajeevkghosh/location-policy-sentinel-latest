@@ -1,0 +1,101 @@
+import "strings"
+import "types"
+
+_modules = {
+	"root": {
+		"data":    {},
+		"modules": {},
+		"outputs": {},
+		"providers": {
+			"google": {
+				"alias": {
+					"": {
+						"config": {},
+						"references": {
+							"access_token": [
+								"var.access_token",
+							],
+						},
+						"version": "",
+					},
+				},
+				"config": {},
+				"references": {
+					"access_token": [
+						"var.access_token",
+					],
+				},
+				"version": "",
+			},
+		},
+		"resources": {
+			"google_spanner_instance": {
+				"example": {
+					"config": {
+						"config":       "nam3",
+						"display_name": "us-dev_abcd_fghi_spanner1",
+						"labels": {
+							"application_division": "pci",
+							"application_name":     "demo",
+							"application_role":     "app",
+							"au":                   "0223092",
+							"created":              "20211122",
+							"data_compliance":      "pci",
+							"data_confidentiality": "pub",
+							"data_type":            "test",
+							"env":                  "default",
+							"environment":          "dev",
+							"gcp_region":           "us",
+							"owner":                "hybridenv",
+						},
+						"num_nodes": 2,
+						"project":   "airline1-sabre-wolverine",
+					},
+					"provisioners": null,
+					"references": {
+						"config":       [],
+						"display_name": [],
+						"labels":       [],
+						"num_nodes":    [],
+						"project":      [],
+					},
+				},
+			},
+		},
+		"variables": {
+			"access_token": {
+				"default":     null,
+				"description": "access token",
+			},
+		},
+	},
+}
+
+module_paths = [
+	[],
+]
+
+module = func(path) {
+	if types.type_of(path) is not "list" {
+		error("expected list, got", types.type_of(path))
+	}
+
+	if length(path) < 1 {
+		return _modules.root
+	}
+
+	addr = []
+	for path as p {
+		append(addr, "module")
+		append(addr, p)
+	}
+
+	return _modules[strings.join(addr, ".")]
+}
+
+data = _modules.root.data
+modules = _modules.root.modules
+providers = _modules.root.providers
+resources = _modules.root.resources
+variables = _modules.root.variables
+outputs = _modules.root.outputs

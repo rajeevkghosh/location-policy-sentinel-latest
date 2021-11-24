@@ -59,8 +59,7 @@ resource_changes = {
 				"no-op",
 			],
 			"after": {
-				#"config":        "projects/airline1-sabre-wolverine/instanceConfigs/us-central1",
-				"config":        "us-central1",
+				"config":        "projects/airline1-sabre-wolverine/instanceConfigs/nam3",
 				"display_name":  "us-dev_abcd_fghi_spanner1",
 				"force_destroy": false,
 				"id":            "airline1-sabre-wolverine/tfgen-spanid-20211123161757611",
