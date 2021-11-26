@@ -11,12 +11,11 @@ import "strings"
 import "types"
 
 prefix = ["us-"]
-spanner_region = ["nam10", "nam11", "nam3", "nam6", "nam7", "nam8", "nam9", "regional-us-central1",
-	"regional-us-east1", "regional-us-east4", "regional-us-west1", "regional-us-west2",
-	"regional-us-west3", "regional-us-west4", "regional-northamerica-northeast1", "regional-northamerica-northeast2"]
-
+spanner_region = ["nam10","nam11","nam3","nam6","nam7","nam8","nam9","regional-us-central1",
+"regional-us-east1","regional-us-east4","regional-us-west1","regional-us-west2",
+"regional-us-west3","regional-us-west4","regional-northamerica-northeast1","regional-northamerica-northeast2"]
+   
 multi_region_var = ["US"]
-global_var = ["global"]
 
 # Resource Types Region Map
 resourceTypesRegionMap = {
@@ -48,40 +47,29 @@ resourceTypesRegionMap = {
 check_for_matches = func(location, address, rc) {
 	violations = {}
 	for location as lk {
-		is_spanner = rule { rc["type"] == "google_spanner_instance" }
-		is_dialogflow = rule { rc["type"] == "google_dialogflow_cx_agent" }
+		#print(lk)
+		#print(rc["type"])
+		is_spanner = rule {rc["type"] == "google_spanner_instance"}
+        print(is_spanner)
 
 		if is_spanner {
+           a = strings.split(lk, "/")
+           #print(a)
+		   b = a[-1]
+		   #print (b)
+		   lk = b
+           if not (lk in spanner_region) {
+			   violations[address] = rc
+		   }
 
-			lk_arr = strings.split(lk, "/")
-			lk = lk_arr[-1]
-
-			if not (lk in spanner_region) {
-				violations[address] = rc
-				print("The location for ~~~"+address+" ~~~should be in: "+plan.to_string(spanner_region)+ "only")
-			}
-
-		} else {
+		} else { 
 
 			resource_prefix = strings.split(lk, "-")[0] + "-"
-			#print(resource_prefix)
-
-			if is_dialogflow {
-
-				if not (resource_prefix in prefix or lk in global_var) {
-					violations[address] = rc
-					print("The location for ~~~"+address+" ~~~should be in "+plan.to_string(prefix)+" or "+ plan.to_string(global_var)+ " region only ")
-
-				}
-			} else {
-
-				if not (resource_prefix in prefix or lk in multi_region_var) {
-					violations[address] = rc
-					print("The location for ~~~"+address+" ~~~should be in "+plan.to_string(prefix)+ " or "+plan.to_string(multi_region_var)+" region only")
-				}
+			print(resource_prefix)
+			if not (resource_prefix in prefix or lk in multi_region_var) {
+				violations[address] = rc
 			}
 		}
-
 	}
 	return violations
 }
@@ -150,7 +138,6 @@ for allResources as address, rc {
 }
 
 GCP_RES_LOCATION = rule { length(msgs) is 0 }
-
 #print(msgs)
 
 # Main rule
