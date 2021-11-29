@@ -1,4 +1,3 @@
-  
 #This policy uses the Sentinel tfplan/v2 import to require that
 # all GCE compute instances have all mandatory labels
 
@@ -15,8 +14,6 @@ prefix = ["us-"]
 spanner_region = ["nam10", "nam11", "nam3", "nam6", "nam7", "nam8", "nam9", "regional-us-central1",
 	"regional-us-east1", "regional-us-east4", "regional-us-west1", "regional-us-west2",
 	"regional-us-west3", "regional-us-west4", "regional-northamerica-northeast1", "regional-northamerica-northeast2"]
-
-cloudSql_allowed_region = ["northamerica-northeast1","northamerica-northeast2"]
 
 multi_region_var = ["US"]
 global_var = ["global"]
@@ -45,9 +42,6 @@ resourceTypesRegionMap = {
 	"google_spanner_instance": {
 		"key": "config",
 	},
-    "google_sql_database_instance": {
-		"key": "region",
-	},
 }
 
 # Function to check region prefix OR location prefix
@@ -56,7 +50,6 @@ check_for_matches = func(location, address, rc) {
 	for location as lk {
 		is_spanner = rule { rc["type"] == "google_spanner_instance" }
 		is_dialogflow = rule { rc["type"] == "google_dialogflow_cx_agent" }
-        is_cloudsqlInstance = rule { rc["type"] == "google_sql_database_instance" }
 
 		if is_spanner {
 
@@ -80,14 +73,7 @@ check_for_matches = func(location, address, rc) {
 					print("The location for ~~~"+address+" ~~~should be in "+plan.to_string(prefix)+" or "+ plan.to_string(global_var)+ " region only ")
 
 				}
-			} else if is_cloudsqlInstance {
-                if not (resource_prefix in prefix or lk in cloudSql_allowed_region) {
-					violations[address] = rc
-					print("The location for ~~~"+address+" ~~~should be in "+plan.to_string(prefix)+" or "+ plan.to_string(cloudSql_allowed_region)+ " region only ")
-
-				}
-
-            } else {
+			} else {
 
 				if not (resource_prefix in prefix or lk in multi_region_var) {
 					violations[address] = rc
