@@ -35,7 +35,7 @@ planned_values = {
 			"tainted":        false,
 			"type":           "google_kms_key_ring",
 			"values": {
-				"location": "us-central1",
+				"location": "asia-south1",
 				"name":     "keyring-example",
 				"timeouts": null,
 			},
@@ -90,7 +90,7 @@ resource_changes = {
 				"create",
 			],
 			"after": {
-				"location": "uk-central1",
+				"location": "asia-south1",
 				"name":     "keyring-example",
 				"timeouts": null,
 			},
@@ -161,7 +161,7 @@ raw = {
 					"address": "google_kms_key_ring.keyring11",
 					"expressions": {
 						"location": {
-							"constant_value": "us-central1",
+							"constant_value": "asia-south1",
 						},
 						"name": {
 							"constant_value": "keyring-example",
@@ -214,7 +214,7 @@ raw = {
 					"sensitive_values": {},
 					"type":             "google_kms_key_ring",
 					"values": {
-						"location": "us-central1",
+						"location": "asia-south1",
 						"name":     "keyring-example",
 						"timeouts": null,
 					},
@@ -263,7 +263,7 @@ raw = {
 					"create",
 				],
 				"after": {
-					"location": "uk-central1",
+					"location": "asia-south1",
 					"name":     "keyring-example",
 					"timeouts": null,
 				},

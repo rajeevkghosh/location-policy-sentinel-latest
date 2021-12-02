@@ -47,6 +47,9 @@ resourceTypesRegionMap = {
 	"google_sql_database_instance": {
 		"key": "region",
 	},
+	"google_kms_key_ring": {
+	    "key": "location",
+	},
 }
 
 # Function to check region prefix OR location prefix
@@ -56,6 +59,7 @@ check_for_matches = func(location, address, rc) {
 		is_spanner = rule { rc["type"] == "google_spanner_instance" }
 		is_dialogflow = rule { rc["type"] == "google_dialogflow_cx_agent" }
 		is_cloudsqlInstance = rule { rc["type"] == "google_sql_database_instance" }
+		is_kmsKeyring = rule { rc["type"] == "google_kms_key_ring" }
 
 		if is_spanner {
 
@@ -85,6 +89,13 @@ check_for_matches = func(location, address, rc) {
 					print("The location for " + address + " should be in " + plan.to_string(prefix) + " or " + plan.to_string(cloudsql_allowed_region) + " region only ")
 
 				}
+            } else if is_kmsKeyring {
+				if not (resource_prefix in prefix ){
+					violations[address] = rc
+					print("The location for " + address + " should be in " + plan.to_string(prefix) +  " region only ")
+
+				}
+
 
 			} else {
 

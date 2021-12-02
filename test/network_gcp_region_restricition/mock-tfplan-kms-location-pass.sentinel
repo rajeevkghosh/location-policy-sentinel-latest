@@ -90,7 +90,7 @@ resource_changes = {
 				"create",
 			],
 			"after": {
-				"location": "uk-central1",
+				"location": "us-central1",
 				"name":     "keyring-example",
 				"timeouts": null,
 			},
@@ -263,7 +263,7 @@ raw = {
 					"create",
 				],
 				"after": {
-					"location": "uk-central1",
+					"location": "us-central1",
 					"name":     "keyring-example",
 					"timeouts": null,
 				},
