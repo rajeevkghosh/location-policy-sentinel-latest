@@ -48,7 +48,7 @@ resourceTypesRegionMap = {
 		"key": "region",
 	},
 	"google_kms_key_ring": {
-	    "key": "location",
+		"key": "location",
 	},
 }
 
@@ -89,13 +89,12 @@ check_for_matches = func(location, address, rc) {
 					print("The location for " + address + " should be in " + plan.to_string(prefix) + " or " + plan.to_string(cloudsql_allowed_region) + " region only ")
 
 				}
-            } else if is_kmsKeyring {
-				if not (resource_prefix in prefix ){
+			} else if is_kmsKeyring {
+				if not (resource_prefix in prefix) {
 					violations[address] = rc
-					print("The location for " + address + " should be in " + plan.to_string(prefix) +  " region only ")
+					print("The location for " + address + " should be in " + plan.to_string(prefix) + " region only ")
 
 				}
-
 
 			} else {
 
