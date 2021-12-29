@@ -50,12 +50,6 @@ resourceTypesRegionMap = {
 	"google_kms_key_ring": {
 		"key": "location",
 	},
-	"google_container_cluster": {
-        "key": "location",
-	},
-	"google_container_node_pool": {
-        "key": "location",
-	},
 }
 
 # Function to check region prefix OR location prefix
@@ -66,8 +60,6 @@ check_for_matches = func(location, address, rc) {
 		is_dialogflow = rule { rc["type"] == "google_dialogflow_cx_agent" }
 		is_cloudsqlInstance = rule { rc["type"] == "google_sql_database_instance" }
 		is_kmsKeyring = rule { rc["type"] == "google_kms_key_ring" }
-		is_gkeCluster = rule { rc["type"] == "google_container_cluster" }
-		is_gkeNodepool = rule { rc["type"] == "google_container_node_pool" }
 
 		if is_spanner {
 
@@ -98,18 +90,6 @@ check_for_matches = func(location, address, rc) {
 
 				}
 			} else if is_kmsKeyring {
-				if not (resource_prefix in prefix) {
-					violations[address] = rc
-					print("The location for " + address + " should be in " + plan.to_string(prefix) + " region only ")
-
-				}
-			} else if is_gkeCluster {
-				if not (resource_prefix in prefix) {
-					violations[address] = rc
-					print("The location for " + address + " should be in " + plan.to_string(prefix) + " region only ")
-
-				}
-			} else if is_gkeNodepool {
 				if not (resource_prefix in prefix) {
 					violations[address] = rc
 					print("The location for " + address + " should be in " + plan.to_string(prefix) + " region only ")
