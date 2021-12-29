@@ -147,10 +147,10 @@ check_for_location = func(address, rc, location_key_param, location_key) {
 	violations = {}
 	locations = []
 	location = plan.evaluate_attribute(rc.change.after, location_key_param)
-
-	is_undefined = rule { types.type_of(location) is "undefined" }
+	is_undefined = rule { types.type_of(location) is "undefined" or types.type_of(location) is "null" }
 	if is_undefined {
 		violations[address] = rc
+		print("The location for " + address + " can't be Null")
 	} else {
 		is_type = types.type_of(location)
 		if is_type is "string" {

@@ -1,37 +1,25 @@
 {
 	"records": [
 		{
-			"key": "test/network_gcp_region_restricition/kms-location-fail/tfplan-functions",
-			"source": "../../tfplan-functions.sentinel",
-			"sourceSum": "",
-			"dest": "/home/rajeevghosh/wells-02DEC/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
-		},
-		{
-			"key": "test/network_gcp_region_restricition/secret-manager-location-check-pass/tfplan-functions",
+			"key": "test/network_gcp_region_restricition/dataproc-location-check-pass/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
 		},
 		{
-			"key": "test/network_gcp_region_restricition/dataproc-location-check-null/tfplan-functions",
+			"key": "test/network_gcp_region_restricition/gke-cluster-location-fail/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-29DEC/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/pubsub-location-check-null/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
 		},
 		{
-			"key": "test/network_gcp_region_restricition/prefix-validation-fail/tfplan-functions",
-			"source": "../../tfplan-functions.sentinel",
-			"sourceSum": "",
-			"dest": "/home/rajeevghosh/wells-12NOV/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
-		},
-		{
-			"key": "test/network_gcp_region_restricition/postgresql-region-fail/tfplan-functions",
-			"source": "../../tfplan-functions.sentinel",
-			"sourceSum": "",
-			"dest": "/home/rajeevghosh/wells-29NOV/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
-		},
-		{
-			"key": "test/network_gcp_region_restricition/bigquery-location-check-fail/tfplan-functions",
+			"key": "test/network_gcp_region_restricition/pubsub-location-check-pass/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
@@ -49,10 +37,34 @@
 			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
 		},
 		{
+			"key": "test/network_gcp_region_restricition/prefix-validation-fail/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-12NOV/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/gke-cluster-nodepool-location-null/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-29DEC/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
 			"key": "test/network_gcp_region_restricition/kms-location-pass/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/wells-02DEC/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/bigquery-location-check-fail/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/gke-cluster-nodepool-location-pass/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-29DEC/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
 		},
 		{
 			"key": "test/network_gcp_region_restricition/bigquery-location-check-null/tfplan-functions",
@@ -61,13 +73,49 @@
 			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
 		},
 		{
+			"key": "test/network_gcp_region_restricition/gke-cluster-location-null/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-29DEC/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/gke-cluster-nodepool-location-fail/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-29DEC/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
 			"key": "test/network_gcp_region_restricition/pubsub-location-check-fail/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
 		},
 		{
-			"key": "test/network_gcp_region_restricition/pubsub-location-check-pass/tfplan-functions",
+			"key": "test/network_gcp_region_restricition/kms-location-fail/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-02DEC/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/prefix-validation-pass/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-12NOV/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/gke-cluster-location-pass/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-29DEC/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/postgresql-region-fail/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/wells-29NOV/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/network_gcp_region_restricition/dataproc-location-check-null/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
@@ -79,25 +127,13 @@
 			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
 		},
 		{
-			"key": "test/network_gcp_region_restricition/pubsub-location-check-null/tfplan-functions",
+			"key": "test/network_gcp_region_restricition/secret-manager-location-check-pass/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
 		},
 		{
 			"key": "test/network_gcp_region_restricition/secret-manager-location-check-fail/tfplan-functions",
-			"source": "../../tfplan-functions.sentinel",
-			"sourceSum": "",
-			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
-		},
-		{
-			"key": "test/network_gcp_region_restricition/prefix-validation-pass/tfplan-functions",
-			"source": "../../tfplan-functions.sentinel",
-			"sourceSum": "",
-			"dest": "/home/rajeevghosh/wells-12NOV/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"
-		},
-		{
-			"key": "test/network_gcp_region_restricition/dataproc-location-check-pass/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/wells-22OCT/pubsub-bq-dataproc-secret-manager-location-func/tfplan-functions.sentinel"

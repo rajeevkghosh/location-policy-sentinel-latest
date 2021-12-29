@@ -1,4 +1,4 @@
-terraform_version = "1.1.2"
+terraform_version = "1.1.0"
 
 planned_values = {
 	"outputs": {},
@@ -26,6 +26,7 @@ planned_values = {
 				"ip_allocation_policy": [
 					{},
 				],
+				"location":                          "us-central1",
 				"maintenance_policy":                [],
 				"master_authorized_networks_config": [],
 				"min_master_version":                null,
@@ -59,6 +60,7 @@ planned_values = {
 			"values": {
 				"autoscaling": [],
 				"cluster":     "my-gke-cluster",
+				"location":    "us-central1",
 				"name":        "my-node-pool",
 				"node_config": [
 					{
@@ -77,10 +79,34 @@ planned_values = {
 				"timeouts":   null,
 			},
 		},
+		"google_service_account.default": {
+			"address":        "google_service_account.default",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "managed",
+			"module_address": "",
+			"name":           "default",
+			"provider_name":  "registry.terraform.io/hashicorp/google",
+			"tainted":        false,
+			"type":           "google_service_account",
+			"values": {
+				"account_id":   "service-account-id",
+				"description":  null,
+				"disabled":     false,
+				"display_name": "Service Account",
+				"timeouts":     null,
+			},
+		},
 	},
 }
 
-variables = {}
+variables = {
+	"access_token": {
+		"name":  "access_token",
+		"value": "REDACTED_SENSITIVE",
+	},
+}
 
 resource_changes = {
 	"google_container_cluster.primary": {
@@ -101,6 +127,7 @@ resource_changes = {
 				"ip_allocation_policy": [
 					{},
 				],
+				"location":                          "asia-south1",
 				"maintenance_policy":                [],
 				"master_authorized_networks_config": [],
 				"min_master_version":                null,
@@ -141,7 +168,6 @@ resource_changes = {
 					},
 				],
 				"label_fingerprint":                 true,
-				"location":                          true,
 				"logging_config":                    true,
 				"logging_service":                   true,
 				"maintenance_policy":                [],
@@ -195,6 +221,7 @@ resource_changes = {
 			"after": {
 				"autoscaling": [],
 				"cluster":     "my-gke-cluster",
+				"location":    "asia-south1",
 				"name":        "my-node-pool",
 				"node_config": [
 					{
@@ -217,7 +244,6 @@ resource_changes = {
 				"id":                          true,
 				"initial_node_count":          true,
 				"instance_group_urls":         true,
-				"location":                    true,
 				"managed_instance_group_urls": true,
 				"management":                  true,
 				"max_pods_per_node":           true,
@@ -257,6 +283,36 @@ resource_changes = {
 		"provider_name":  "registry.terraform.io/hashicorp/google",
 		"type":           "google_container_node_pool",
 	},
+	"google_service_account.default": {
+		"address": "google_service_account.default",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"account_id":   "service-account-id",
+				"description":  null,
+				"disabled":     false,
+				"display_name": "Service Account",
+				"timeouts":     null,
+			},
+			"after_unknown": {
+				"email":     true,
+				"id":        true,
+				"name":      true,
+				"project":   true,
+				"unique_id": true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "default",
+		"provider_name":  "registry.terraform.io/hashicorp/google",
+		"type":           "google_service_account",
+	},
 }
 
 output_changes = {}
@@ -266,8 +322,16 @@ raw = {
 		"provider_config": {
 			"google": {
 				"expressions": {
+					"access_token": {
+						"references": [
+							"var.access_token",
+						],
+					},
 					"project": {
 						"constant_value": "airline1-sabre-wolverine",
+					},
+					"user_project_override": {
+						"constant_value": true,
 					},
 				},
 				"name": "google",
@@ -286,6 +350,9 @@ raw = {
 								"cluster_ipv4_cidr_block": {},
 							},
 						],
+						"location": {
+							"constant_value": "us-central1",
+						},
 						"name": {
 							"constant_value": "my-gke-cluster",
 						},
@@ -318,6 +385,9 @@ raw = {
 								"google_container_cluster.primary",
 							],
 						},
+						"location": {
+							"constant_value": "us-central1",
+						},
 						"name": {
 							"constant_value": "my-node-pool",
 						},
@@ -334,6 +404,12 @@ raw = {
 								"preemptible": {
 									"constant_value": true,
 								},
+								"service_account": {
+									"references": [
+										"google_service_account.default.email",
+										"google_service_account.default",
+									],
+								},
 							},
 						],
 						"node_count": {
@@ -346,7 +422,29 @@ raw = {
 					"schema_version":      1,
 					"type":                "google_container_node_pool",
 				},
+				{
+					"address": "google_service_account.default",
+					"expressions": {
+						"account_id": {
+							"constant_value": "service-account-id",
+						},
+						"display_name": {
+							"constant_value": "Service Account",
+						},
+					},
+					"mode":                "managed",
+					"name":                "default",
+					"provider_config_key": "google",
+					"schema_version":      0,
+					"type":                "google_service_account",
+				},
 			],
+			"variables": {
+				"access_token": {
+					"description": "access_token",
+					"sensitive":   true,
+				},
+			},
 		},
 	},
 	"format_version": "1.0",
@@ -401,6 +499,7 @@ raw = {
 						"ip_allocation_policy": [
 							{},
 						],
+						"location":                          "us-central1",
 						"maintenance_policy":                [],
 						"master_authorized_networks_config": [],
 						"min_master_version":                null,
@@ -452,6 +551,7 @@ raw = {
 					"values": {
 						"autoscaling": [],
 						"cluster":     "my-gke-cluster",
+						"location":    "us-central1",
 						"name":        "my-node-pool",
 						"node_config": [
 							{
@@ -468,6 +568,22 @@ raw = {
 						],
 						"node_count": 1,
 						"timeouts":   null,
+					},
+				},
+				{
+					"address":          "google_service_account.default",
+					"mode":             "managed",
+					"name":             "default",
+					"provider_name":    "registry.terraform.io/hashicorp/google",
+					"schema_version":   0,
+					"sensitive_values": {},
+					"type":             "google_service_account",
+					"values": {
+						"account_id":   "service-account-id",
+						"description":  null,
+						"disabled":     false,
+						"display_name": "Service Account",
+						"timeouts":     null,
 					},
 				},
 			],
@@ -492,6 +608,7 @@ raw = {
 					"ip_allocation_policy": [
 						{},
 					],
+					"location":                          "us-central1",
 					"maintenance_policy":                [],
 					"master_authorized_networks_config": [],
 					"min_master_version":                null,
@@ -561,7 +678,6 @@ raw = {
 						},
 					],
 					"label_fingerprint":                 true,
-					"location":                          true,
 					"logging_config":                    true,
 					"logging_service":                   true,
 					"maintenance_policy":                [],
@@ -613,6 +729,7 @@ raw = {
 				"after": {
 					"autoscaling": [],
 					"cluster":     "my-gke-cluster",
+					"location":    "us-central1",
 					"name":        "my-node-pool",
 					"node_config": [
 						{
@@ -657,7 +774,6 @@ raw = {
 					"id":                          true,
 					"initial_node_count":          true,
 					"instance_group_urls":         true,
-					"location":                    true,
 					"managed_instance_group_urls": true,
 					"management":                  true,
 					"max_pods_per_node":           true,
@@ -695,6 +811,40 @@ raw = {
 			"provider_name": "registry.terraform.io/hashicorp/google",
 			"type":          "google_container_node_pool",
 		},
+		{
+			"address": "google_service_account.default",
+			"change": {
+				"actions": [
+					"create",
+				],
+				"after": {
+					"account_id":   "service-account-id",
+					"description":  null,
+					"disabled":     false,
+					"display_name": "Service Account",
+					"timeouts":     null,
+				},
+				"after_sensitive": {},
+				"after_unknown": {
+					"email":     true,
+					"id":        true,
+					"name":      true,
+					"project":   true,
+					"unique_id": true,
+				},
+				"before":           null,
+				"before_sensitive": false,
+			},
+			"mode":          "managed",
+			"name":          "default",
+			"provider_name": "registry.terraform.io/hashicorp/google",
+			"type":          "google_service_account",
+		},
 	],
-	"terraform_version": "1.1.2",
+	"terraform_version": "1.1.0",
+	"variables": {
+		"access_token": {
+			"value": "REDACTED_SENSITIVE",
+		},
+	},
 }

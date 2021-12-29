@@ -1,0 +1,117 @@
+import "strings"
+
+providers = {
+	"google": {
+		"alias": "",
+		"config": {
+			"project": {
+				"constant_value": "airline1-sabre-wolverine",
+			},
+		},
+		"module_address":      "",
+		"name":                "google",
+		"provider_config_key": "google",
+		"version_constraint":  "",
+	},
+}
+
+resources = {
+	"google_container_cluster.primary": {
+		"address": "google_container_cluster.primary",
+		"config": {
+			"initial_node_count": {
+				"constant_value": 1,
+			},
+			"ip_allocation_policy": [
+				{
+					"cluster_ipv4_cidr_block": {
+						"constant_value": null,
+					},
+				},
+			],
+			"name": {
+				"constant_value": "my-gke-cluster",
+			},
+			"private_cluster_config": [
+				{
+					"enable_private_endpoint": {
+						"constant_value": false,
+					},
+					"enable_private_nodes": {
+						"constant_value": false,
+					},
+				},
+			],
+			"remove_default_node_pool": {
+				"constant_value": true,
+			},
+		},
+		"count":               {},
+		"depends_on":          [],
+		"for_each":            {},
+		"mode":                "managed",
+		"module_address":      "",
+		"name":                "primary",
+		"provider_config_key": "google",
+		"provisioners":        [],
+		"type":                "google_container_cluster",
+	},
+	"google_container_node_pool.primary_preemptible_nodes": {
+		"address": "google_container_node_pool.primary_preemptible_nodes",
+		"config": {
+			"cluster": {
+				"references": [
+					"google_container_cluster.primary.name",
+					"google_container_cluster.primary",
+				],
+			},
+			"name": {
+				"constant_value": "my-node-pool",
+			},
+			"node_config": [
+				{
+					"machine_type": {
+						"constant_value": "e2-medium",
+					},
+					"oauth_scopes": {
+						"constant_value": [
+							"https://www.googleapis.com/auth/cloud-platform",
+						],
+					},
+					"preemptible": {
+						"constant_value": true,
+					},
+				},
+			],
+			"node_count": {
+				"constant_value": 1,
+			},
+		},
+		"count":               {},
+		"depends_on":          [],
+		"for_each":            {},
+		"mode":                "managed",
+		"module_address":      "",
+		"name":                "primary_preemptible_nodes",
+		"provider_config_key": "google",
+		"provisioners":        [],
+		"type":                "google_container_node_pool",
+	},
+}
+
+provisioners = {}
+
+variables = {}
+
+outputs = {}
+
+module_calls = {}
+
+strip_index = func(addr) {
+	s = strings.split(addr, ".")
+	for s as i, v {
+		s[i] = strings.split(v, "[")[0]
+	}
+
+	return strings.join(s, ".")
+}

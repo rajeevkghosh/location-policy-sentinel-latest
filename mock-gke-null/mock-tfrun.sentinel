@@ -1,0 +1,37 @@
+id = "run-1RMbZCkc84dNEWK8"
+created_at = "2021-12-29T08:34:44.792Z"
+message = "Triggered via UI"
+commit_sha = "29ca051388631796bdd981ab6f118fe8202f07fe"
+speculative = false
+is_destroy = false
+refresh = true
+refresh_only = false
+replace_addrs = null
+target_addrs = null
+
+variables = {
+	"GOOGLE_CREDENTIALS": {
+		"category":  "env",
+		"sensitive": true,
+	},
+}
+
+organization = {
+	"name": "ashwinkumarnaik91",
+}
+
+workspace = {
+	"auto_apply":  false,
+	"created_at":  "2021-12-29T07:31:46.898Z",
+	"description": null,
+	"id":          "ws-oEWkyjRupK387Zav",
+	"name":        "Rajeev-gke-location-policy",
+	"tags":        [],
+	"vcs_repo": {
+		"branch":             "",
+		"display_identifier": "rajeevkghosh/gke-location-policy",
+		"identifier":         "rajeevkghosh/gke-location-policy",
+		"ingress_submodules": false,
+	},
+	"working_directory": "",
+}
