@@ -51,10 +51,10 @@ resourceTypesRegionMap = {
 		"key": "location",
 	},
 	"google_container_cluster": {
-        "key": "location",
+		"key": "location",
 	},
 	"google_container_node_pool": {
-        "key": "location",
+		"key": "location",
 	},
 }
 
